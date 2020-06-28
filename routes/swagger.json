@@ -1,0 +1,1746 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample YoYo Gifts Server.  You can find out more about     Yoyo Gifts at [https://yoyo-gift-qa.web.app](https://yoyo-gift-qa.web.app) or on [irc.freenode.net, #swagger](https://yoyo-gift-qa.web.app/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+    "version": "1.0.0",
+    "title": "YO YO Gifts",
+    "termsOfService": "https://yoyo-gift-qa.web.app/terms/",
+    "contact": {
+      "email": "apiteam@yoyo-gift.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "yoyo-gift-qa.web.app",
+  "tags": [
+    {
+      "name": "category",
+      "description": "Category Apis",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://yoyo-gift-qa.web.app"
+      }
+    },
+    {
+      "name": "user",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "https://yoyo-gift-qa.web.app"
+      }
+    },
+    {
+      "name": "Cart",
+      "description": "Operations about Cart",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "https://yoyo-gift-qa.web.app"
+      }
+    }
+  ],
+  "schemes": "https",
+  "paths": {
+    "/products/gifts/addProducts": {
+      "post": {
+        "tags": ["product"],
+        "summary": "Add a new product to the store",
+        "description": "",
+        "operationId": "addproduct",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Auth token after the user has logged in",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "Is Admin status after user has logged in    ",
+            "required": true,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          },
+
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "productstore_auth": ["write:products", "read:products"]
+          }
+        ]
+      }
+    },
+    "/products/delete/byId/{_id}": {
+      "delete": {
+        "tags": ["product"],
+        "summary": "Delte the product",
+        "description": "",
+        "operationId": "Delte the product",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "product that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "product that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "product that need to be updated",
+            "required": true,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "product not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "productstore_auth": ["write:products", "read:products"]
+          }
+        ]
+      }
+    },
+    "/products/find/search/{key}": {
+      "get": {
+        "tags": ["product"],
+        "summary": "search the product",
+        "description": "",
+        "operationId": "search the product",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "product that need to be search",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "product not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "productstore_auth": ["write:products", "read:products"]
+          }
+        ]
+      }
+    },
+
+    "/products/change/product/{_id}": {
+      "put": {
+        "tags": ["product"],
+        "summary": "Update an existing product",
+        "description": "",
+        "operationId": "updateproduct",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "product that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "product that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "product that need to be updated",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "body",
+            "in": "body",
+
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "product not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "productstore_auth": ["write:products", "read:products"]
+          }
+        ]
+      }
+    },
+    "/products/find/getAllProducts": {
+      "get": {
+        "tags": ["product"],
+        "summary": "Finds products by status",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "findproductsByStatus",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["available", "pending", "sold"],
+              "default": "available"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "productstore_auth": ["write:products", "read:products"]
+          }
+        ]
+      }
+    },
+    "/products/find/getProductById/{_id}": {
+      "get": {
+        "tags": ["product"],
+        "summary": "Finds products by id",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "findproductsByStatus",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "product that user want to find",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "productstore_auth": ["write:products", "read:products"]
+          }
+        ]
+      }
+    },
+    "/categories/gifts/addCategory": {
+      "post": {
+        "tags": ["category"],
+        "summary": "Add a new category",
+        "description": "Only Admin Can Add Category",
+        "operationId": "addCategory",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": true,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "category object that needs to be added in app",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "description": "Category Saved",
+            "schema": {
+              "$ref": "#/definitions/CategoryWithId"
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/categories/find/getCategoryById/{id}": {
+      "get": {
+        "tags": ["category"],
+        "summary": "Finds category by id",
+        "description": "Find category by id",
+        "operationId": "Finds category by id",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet that needs to be fetched",
+            "required": true,
+            "default": "5e8aad6284e2831600b7b16e",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/CategoryWithId"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/categories/find/getAllCatagory": {
+      "get": {
+        "tags": ["category"],
+        "summary": "",
+        "description": "Getting All Categories to display in navbar",
+        "produces": "application/json",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CategoryWithId"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/categories/change/category/{id}": {
+      "put": {
+        "tags": ["category"],
+        "summary": "Only admin can Update an existing Category by using id",
+        "description": "",
+        "operationId": "updatePet",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": true,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet that needs to be fetched",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "category object that needs to be added in app",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Category not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          },
+          "200": {
+            "description": "Updated Successfully"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/categories/delete/category/{id}": {
+      "delete": {
+        "tags": ["category"],
+        "summary": "Deletes a pet",
+        "description": "Only Admin can delete a category using id",
+        "operationId": "deletePet",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": true,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Category not found"
+          },
+          "200": {
+            "description": "Successfully Deleted"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/signUp": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Create user",
+        "description": "This endpoint will be hitted when an user want to register him/herself",
+        "operationId": "createUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Details of new user who is trying to signup.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success messge will come",
+            "message": "Data saved successfully.",
+            "status": "success",
+            "id": "user._id"
+          }
+        }
+      }
+    },
+    "/profileDetails/getAllUserDetails": {
+      "get": {
+        "tags": ["user"],
+        "summary": " list of users",
+        "description": "This end points will give all users details present in database",
+        "operationId": "createUsersWithArrayInput",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "status": "status",
+            "doc": "doc"
+          }
+        }
+      }
+    },
+    "/profileDetails/getById/{_id}": {
+      "get": {
+        "tags": ["user"],
+        "summary": "Find user by Id",
+        "description": "find details of an user by user id which is coming through params",
+        "operationId": "createUsersWithListInput",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "ID of user that needs to be fetched",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FindUserById"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": " 'userDetail not found with id"
+          },
+          "200": {
+            "description": " 'Fetching UserDetail Successfully",
+            "userDetail": "userDetail"
+          }
+        }
+      }
+    },
+    "/logIn": {
+      "post": {
+        "tags": ["logIn"],
+        "summary": "Logs user into the system",
+        "description": "Will Get an Jwt generated token after login",
+        "operationId": "loginUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Details of new user who is trying to signup.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "status": true,
+            "isAdmin": "user.isAdmin",
+            "id": "user._id",
+            "accessToken": "accessToken"
+          },
+
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/comment": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Comment Api",
+        "description": "A user Can give comment",
+        "operationId": "createUsersWithListInput",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "category object that needs to be added in app",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": " 'UnAuthorized not found with id"
+          },
+          "200": {
+            "description": " 'Fetching UserDetail Successfully",
+            "userDetail": "userDetail"
+          }
+        }
+      }
+    },
+    "/review": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Rating Api",
+        "description": "A user Can give rating",
+        "operationId": "createUsersWithListInput",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "category object that needs to be added in app",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Rating"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": " 'UnAuthorized not found with id"
+          },
+          "200": {
+            "description": " 'Fetching UserDetail Successfully",
+            "userDetail": "userDetail"
+          }
+        }
+      }
+    },
+    "/order/sendHistory": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Find user by Id",
+        "description": "find details of an user by user id which is coming through params",
+        "operationId": "createUsersWithListInput",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "orderdetails",
+            "in": "body",
+            "description": "ID of user that needs to be fetched,blanceleft after purchase",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sendhistory"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": " 'userDetail not found with id"
+          },
+          "200": {
+            "description": " 'Fetching UserDetail Successfully",
+            "userDetail": "userDetail"
+          }
+        }
+      }
+    },
+    "/profileDetails/updateyoyobalance/{_id}": {
+      "put": {
+        "tags": ["user"],
+        "summary": "yoyo balance by Id",
+        "description": "find details of an user by user id which is coming through params",
+        "operationId": "createUsersWithListInput",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "orderdetails",
+            "in": "body",
+            "description": "ID of user that needs to be fetched",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/yoyobalance"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "ID of user that needs to be fetched",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/yoyobalance"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": " 'userDetail not found with id"
+          },
+          "200": {
+            "description": " 'Fetching UserDetail Successfully",
+            "userDetail": "userDetail"
+          }
+        }
+      }
+    },
+    "/profileDetails/updateName/{_id}": {
+      "put": {
+        "tags": ["user"],
+        "summary": "yoyo balance by Id",
+        "description": "find details of an user by user id which is coming through params",
+        "operationId": "createUsersWithListInput",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "Name",
+            "in": "body",
+            "description": "ID of user that needs to be fetched",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Name"
+            }
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "ID of user that needs to be fetched",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/yoyobalance"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": " 'userDetail not found with id"
+          },
+          "200": {
+            "description": " 'Fetching UserDetail Successfully",
+            "userDetail": "userDetail"
+          }
+        }
+      }
+    },
+    "/redeem/redeemGift": {
+      "post": {
+        "tags": ["user"],
+        "summary": "redeemGift",
+        "description": "find details of an user by user id which is coming through params",
+        "operationId": "createUsersWithListInput",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "orderdetails",
+            "in": "body",
+            "description": "ID of user that needs to be fetched",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/redeemGift"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": " 'userDetail not found with id"
+          },
+          "200": {
+            "description": " 'Fetching UserDetail Successfully",
+            "userDetail": "userDetail"
+          }
+        }
+      }
+    },
+    "/cart/addInCart": {
+      "post": {
+        "tags": ["Cart"],
+        "summary": "Add a new product in cart",
+        "description": "registered user call this",
+        "operationId": "addInCart",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTg3Njk5NTk0fQ.v-28iA9CRSFPbgln7_OiUoLzeCccQWs5fYmcg3FuvxU",
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "cart body that needs to be added in app",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/productresponse"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "description": "Category Saved",
+            "schema": {
+              "$ref": "#/definitions/productresponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/cart/removeFromCart": {
+      "post": {
+        "tags": ["Cart"],
+        "summary": "Remove a product in cart",
+        "description": "registered user call this",
+        "operationId": "removeFromcart",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTg3Njk5NTk0fQ.v-28iA9CRSFPbgln7_OiUoLzeCccQWs5fYmcg3FuvxU",
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "cart body that needs to be added in app",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "5e96e76abad34e45ac8589c5"
+                },
+                "productId": {
+                  "type": "string",
+                  "example": "5e8b1f572d81de21adac301d"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "description": "Category Saved",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/cart/getCart/{userId}": {
+      "get": {
+        "tags": ["Cart"],
+        "summary": "Finds cart by userid",
+        "description": "Finds cart by userid",
+        "operationId": "Finds cart by userid",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTg3Njk5NTk0fQ.v-28iA9CRSFPbgln7_OiUoLzeCccQWs5fYmcg3FuvxU",
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of User",
+            "required": true,
+            "default": "5e9e173440d262537406e460",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/cart/increment/{cartId}/{userId}": {
+      "get": {
+        "tags": ["Cart"],
+        "summary": "Increment Product Count In Cart",
+        "description": "Increment Product Count In Cart",
+        "operationId": "Increment Product Count In Cart",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTg3Njk5NTk0fQ.v-28iA9CRSFPbgln7_OiUoLzeCccQWs5fYmcg3FuvxU",
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of User",
+            "required": true,
+            "default": "5e9e173440d262537406e460",
+            "type": "string"
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "description": "ID cart",
+            "required": true,
+            "default": "5ea03d865cbc190f48e0ae2f",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/cart/decrement/{cartId}/{userId}": {
+      "get": {
+        "tags": ["Cart"],
+        "summary": "Decrement Product Count In Cart",
+        "description": "Decrement Product Count In Cart",
+        "operationId": "Decrement Product Count In Cart",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string",
+            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTg3Njk5NTk0fQ.v-28iA9CRSFPbgln7_OiUoLzeCccQWs5fYmcg3FuvxU"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of User",
+            "required": true,
+            "default": "5e9e173440d262537406e460",
+            "type": "string"
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "description": "ID cart",
+            "required": true,
+            "default": "5ea03d865cbc190f48e0ae2f",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+    "/cart/addManyToCart": {
+      "post": {
+        "tags": ["Cart"],
+        "summary": "Add cart items in db when user logged in",
+        "description": "Add items in cart when user logged in",
+        "operationId": "addManyInCart",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "cart body that needs to be added in app",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "required": "true"
+                },
+                "cart": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/productresponse"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "description": "Category Saved",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/productresponse"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ]
+      }
+    },
+
+    "/profileDetails/updateById/{_id}": {
+      "put": {
+        "tags": ["user"],
+        "summary": "Find by Id and update the details of user",
+        "description": "Find by Id and update the details of user",
+        "operationId": "updateById",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token required",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isAdmin",
+            "in": "header",
+            "description": "A flag to check type of user",
+            "default": false,
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "ID of user that needs to be fetched",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FindUserById"
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Details of new user who is trying to signup.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "UserDetail not found with id"
+          },
+          "200": {
+            "description": "Fetching UserDetail Successfully",
+            "userDetail": "userDetail"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "productresponse": {
+      "type": "object",
+      "properties": {
+        "reviews": {
+          "type": "string",
+          "example": []
+        },
+        "_id": {
+          "type": "string",
+          "example": "22323der23123ssa231213"
+        },
+
+        "product_name": {
+          "type": "string",
+          "example": "watch"
+        },
+        "category": {
+          "type": "string",
+          "example": "watch"
+        },
+
+        "description": {
+          "type": "string",
+          "example": "great watch"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+
+        "discount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "date-time"
+        }
+      }
+    },
+    "CartInput": {
+      "type": "object",
+      "properties": {
+        "cartId": {
+          "type": "string",
+          "required": true,
+          "example": "22323der23123ssa231213"
+        },
+        "productId": {
+          "type": "string",
+          "required": true,
+          "example": "22323der23123ssa231213"
+        },
+        "productCount": {
+          "type": "Number",
+          "required": true,
+          "example": "2"
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "petId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "shipDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Order Status",
+          "enum": ["placed", "approved", "delivered"]
+        },
+        "complete": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
+    "Rating": {
+      "type": "object",
+      "properties": {
+        "rating": {
+          "type": "integer"
+        },
+        "user": {
+          "type": "string"
+        },
+        "productId": {
+          "type": "string"
+        }
+      }
+    },
+    "sendhistory": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "mailId": {
+          "type": "string",
+          "example": "example@example.com"
+        },
+        "balance": {
+          "type": "string",
+          "example": "23"
+        }
+      }
+    },
+    "Name": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Test"
+        }
+      }
+    },
+    "redeemGift": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "couponCode": {
+          "type": "string",
+          "example": "Xyx--sdaa-asd"
+        }
+      }
+    },
+    "yoyobalance": {
+      "type": "object",
+      "properties": {
+        "yoyobalance": {
+          "type": "string",
+          "example": "323"
+        }
+      }
+    },
+
+    "Comment": {
+      "type": "object",
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "productId": {
+          "type": "string"
+        }
+      }
+    },
+
+    "CategoryWithId": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Category_Name"
+        }
+      }
+    },
+
+    "Category": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "required": true,
+          "example": "Category_Name"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "confirmEmail": {
+          "type": "string"
+        }
+      }
+    },
+    "FinddUserById": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        }
+      }
+    },
+    "UserUpdate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "product": {
+      "type": "object",
+
+      "properties": {
+        "product_name": {
+          "type": "string",
+          "example": "watch"
+        },
+        "category": {
+          "type": "string",
+          "example": "22323der23123ssa231213"
+        },
+
+        "description": {
+          "type": "string",
+          "example": "great watch"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+
+        "discount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Pet": {
+      "type": "object",
+      "required": ["name", "photoUrls"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "name": {
+          "type": "string",
+          "example": "doggie"
+        },
+        "photoUrls": {
+          "type": "array",
+          "xml": {
+            "name": "photoUrl",
+            "wrapped": true
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "xml": {
+            "name": "tag",
+            "wrapped": true
+          },
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "pet status in the store",
+          "enum": ["available", "pending", "sold"]
+        }
+      },
+      "xml": {
+        "name": "Pet"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "https://yoyo-gift-qa.web.app"
+  }
+}
